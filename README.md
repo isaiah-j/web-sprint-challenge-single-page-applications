@@ -55,10 +55,10 @@ Your finished project must include all of the following requirements:
 - [x] Validation for name - name must be at least 2 characters
 - [x] A dropdown for pizza size
 - [x] A checklist for toppings - at least 4 (hint: name each separately!)
-- [] Text input for special instructions
-- [ ] An Add to Order button that submits form and returns a database record of name, size, toppings and special instructions
+- [x] Text input for special instructions
+- [x] An Add to Order button that submits form and returns a database record of name, size, toppings and special instructions
 
-#### Testing MVP
+#### Testing MVP    
 
 Implement the following tests in Cypress:
 

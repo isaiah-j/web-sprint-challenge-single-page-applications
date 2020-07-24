@@ -1,9 +1,13 @@
 import React from 'react'
 import { Route, Link } from 'react-router-dom'
+import Order from './order/order'
+
 
 const Orders = () => {
     return (
-        <h1>All Orders are placed here</h1>
+        <div>
+            <Order></Order>
+        </div>
     )
 }
 

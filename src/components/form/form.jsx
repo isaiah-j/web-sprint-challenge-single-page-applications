@@ -12,7 +12,9 @@ const Form = ({ friends, setFriends, postUser, history }) => {
     const formSchema = Yup.object().shape({
         name: Yup.string().min(2, 'Must be at least 2 characters'),
         email: Yup.string().email('Must be a valid email address.').required('Must include email address.'),
-        password: Yup.string().min(6, 'Passwords must be at least 6 characters long.').required('Password is Required')
+        password: Yup.string().min(6, 'Passwords must be at least 6 characters long.').required('Password is Required'),
+        special: Yup.string(),
+        size: Yup.string().required('Please choose a size!')
     });
 
     let schema = Yup.string();
@@ -21,9 +23,14 @@ const Form = ({ friends, setFriends, postUser, history }) => {
 
     let [formValues, setFormValues] = useState({
         name: '',
-        last_name: '',
-        email: '',
-        password: ''
+       special: '',
+       size: '',
+       toppings: {
+           chicken: false,
+           salami: false,
+           pepperoni: false,
+           bacon: false
+       },
     });
 
     const [errors, setErrors] = useState({
@@ -32,9 +39,18 @@ const Form = ({ friends, setFriends, postUser, history }) => {
         password: ''
     });
 
+    const onCheckboxChange = (e) => {
+        const {name, checked} = e.target
+        checkboxChange(name,checked)
+    }
+    const checkboxChange = e => {
+
+    }
+
+
     const handleChange = (e) => {
         e.persist();
-        console.log('Hello')
+        console.log(formValues)
         Yup.reach(formSchema, e.target.name)
             .validate(e.target.value)
             .then((valid) => {
@@ -79,8 +95,11 @@ const Form = ({ friends, setFriends, postUser, history }) => {
                     name="name"
                     id="name"
                     label="name"
+                    
                     onChange={handleChange}
                 />
+                {errors.name.length > 0 ? <p>{errors.name}</p> : null}
+
                 {/* <input type="text" name="" className='name' id="" placeholder="Isaiah"/> */}
 
         
@@ -99,14 +118,17 @@ const Form = ({ friends, setFriends, postUser, history }) => {
                 <div className="checkboxes" labelId='checkboxes'>
                     <InputLabel label="pepperoni">Pepperoni</InputLabel>
                     <Checkbox
+                        name='pepperoni'
                         className="cool-checkbox"
                         labelid="pepperoni"
                         value="checkedA"
                         inputProps={{ 'aria-label': 'Checkbox A' }}
                     />
 
+
                     <InputLabel label='bacon'>Bacon</InputLabel>
                     <Checkbox
+                        name='bacon'
                         className="cool-checkbox"
                         labelid="bacon"
                         value="checkedA"
@@ -116,6 +138,7 @@ const Form = ({ friends, setFriends, postUser, history }) => {
 
                     <InputLabel label='chicken'>Chicken</InputLabel>
                     <Checkbox
+                        name='chicken'
                         className="cool-checkbox"
                         labelid="chicken"
                         value="chicken"
@@ -124,6 +147,7 @@ const Form = ({ friends, setFriends, postUser, history }) => {
 
                     <InputLabel label='salami'>Salami</InputLabel>
                     <Checkbox
+                        name='salami'
                         className="cool-checkbox"
                         labelid="salami"
                         value="checkedA"
@@ -131,7 +155,7 @@ const Form = ({ friends, setFriends, postUser, history }) => {
                     />
                 </div>
 
-                <TextField id="select" label="Size" value="20" select>
+                <TextField id="select" label="Size"  name="size"  onChange={handleChange} select>
                     <MenuItem value="large">large</MenuItem>
                     <MenuItem value="Medium">Medium</MenuItem>
                     <MenuItem value="Small">Small</MenuItem>
@@ -149,7 +173,7 @@ const Form = ({ friends, setFriends, postUser, history }) => {
                 {errors.password.length > 0 ? <p>{errors.password}</p> : null}
 
                 <Button type="submit" variant="contained" color="secondary">
-                    Create Pizza!
+                    Order
 				</Button>
             </form>
             <Link className="bottom-link" to="/orders">

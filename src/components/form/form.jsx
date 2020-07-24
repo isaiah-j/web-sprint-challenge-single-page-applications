@@ -44,15 +44,12 @@ const Form = ({ orders, setOrders, postNewOrder, history }) => {
 				...formValues.toppings,
 				[name]: isChecked
 			}
-		})
-
+		});
 	};
 
 	const handleChange = (e) => {
 		e.persist();
 
-
-	
 		Yup.reach(formSchema, e.target.name)
 			.validate(e.target.value)
 			.then((valid) => {
@@ -76,16 +73,17 @@ const Form = ({ orders, setOrders, postNewOrder, history }) => {
 
 	function handleSubmit(e) {
 		e.preventDefault();
-		const newOrder ={
+		const newOrder = {
 			name: formValues.name.trim(),
 			special: formValues.special.trim(),
 			size: formValues.size.trim(),
 			toppings: Object.keys(formValues.toppings).filter((el) => formValues.toppings[el])
-		}
-		console.log(newOrder)
+		};
+		console.log(newOrder);
 		formSchema.isValid(newOrder).then((valid) => {
 			if (valid) {
 				postNewOrder(newOrder);
+				document.querySelector('form').reset()
 			}
 			if (!valid) {
 				alert('Not valid');
@@ -113,7 +111,7 @@ const Form = ({ orders, setOrders, postNewOrder, history }) => {
                     />
                 </div> */}
 
-				<div className="checkboxes" labelId="checkboxes" >
+				<div className="checkboxes" labelId="checkboxes">
 					<InputLabel label="pepperoni">Pepperoni</InputLabel>
 					<Checkbox
 						name="pepperoni"
@@ -122,8 +120,7 @@ const Form = ({ orders, setOrders, postNewOrder, history }) => {
 						value="checkedA"
 						inputProps={{ 'aria-label': 'Checkbox A' }}
 						onChange={onCheckboxChange}
-						id='pepperoni'
-
+						id="pepperoni"
 					/>
 
 					<InputLabel label="bacon">Bacon</InputLabel>
@@ -134,7 +131,7 @@ const Form = ({ orders, setOrders, postNewOrder, history }) => {
 						value="checkedA"
 						inputProps={{ 'aria-label': 'Checkbox A' }}
 						onChange={onCheckboxChange}
-						id='bacon'
+						id="bacon"
 					/>
 
 					<InputLabel label="chicken">Chicken</InputLabel>
@@ -145,7 +142,7 @@ const Form = ({ orders, setOrders, postNewOrder, history }) => {
 						value="chicken"
 						inputProps={{ 'aria-label': 'Checkbox A' }}
 						onChange={onCheckboxChange}
-						id='chicken'
+						id="chicken"
 					/>
 
 					<InputLabel label="salami">Salami</InputLabel>
@@ -156,12 +153,21 @@ const Form = ({ orders, setOrders, postNewOrder, history }) => {
 						value="checkedA"
 						inputProps={{ 'aria-label': 'Checkbox A' }}
 						onChange={onCheckboxChange}
-						id='salami'
+						id="salami"
 					/>
 				</div>
 
-				<TextField data-test='select' id="select" label="Size" name="size" value="" onChange={handleChange} select>
-					<MenuItem value="large" id='large'>large</MenuItem>
+				<TextField
+					data-test="select"
+					id="select"
+					label="Size"
+					name="size"
+					onChange={handleChange}
+					select
+				>
+					<MenuItem value="large" id="large">
+						large
+					</MenuItem>
 					<MenuItem value="Medium">Medium</MenuItem>
 					<MenuItem value="Small">Small</MenuItem>
 				</TextField>
@@ -172,13 +178,16 @@ const Form = ({ orders, setOrders, postNewOrder, history }) => {
 					label="special Instructions"
 					onChange={handleChange}
 				/> */}
-				<TextField className="name" type="text" name="special" id="lol" label="special order" onChange={handleChange} />
+				<TextField
+					className="name"
+					type="text"
+					name="special"
+					id="lol"
+					label="special order"
+					onChange={handleChange}
+				/>
 
-				{errors.name.length > 0 ? <p>{errors.name}</p> : null}
-				{errors.email.length > 0 ? <p>{errors.email}</p> : null}
-				{errors.password.length > 0 ? <p>{errors.password}</p> : null}
-
-				<Button type="submit" variant="contained" color="secondary" id='submit'>
+				<Button type="submit" variant="contained" color="secondary" id="submit">
 					Order
 				</Button>
 			</form>

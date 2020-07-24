@@ -3,10 +3,13 @@ import { Route, Link } from 'react-router-dom'
 import Order from './order/order'
 
 
-const Orders = () => {
+const Orders = ({orders}) => {
     return (
         <div>
-            <Order></Order>
+            {orders.map((el) => {
+                let {name, size, special, toppings} = el
+                return <Order name={name} size={size} special={special} toppings={toppings}></Order>
+            })}
         </div>
     )
 }
